@@ -1,0 +1,19 @@
+{
+  "name": "bookit",
+  "version": "1.0.0",
+  "description": "A simple demo website for a hall booking service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlankCipher/bookit.git"
+  },
+  "author": "PlankCipher",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/PlankCipher/bookit/issues"
+  },
+  "homepage": "https://github.com/PlankCipher/bookit#readme"
+}
