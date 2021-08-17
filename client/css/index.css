@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-purple-color: rgb(111, 153, 234);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, Arial;
+}
+
+.container {
+  width: 93%;
+  max-width: 1270px;
+  margin: 0px auto;
+}
+
+.landing {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../images/landing.jpeg');
+  background-size: cover;
+  background-repeat: none;
+  background-attachment: fixed;
+  color: #fff;
+  position: relative;
+}
+
+.landing__overlay {
+  background: rgba(0, 0, 0, 0.6);
+  height: 100%;
+}
+
+.landing__header {
+  height: 60px;
+  font-size: max(19px, 1.3vw);
+  text-transform: uppercase;
+  position: fixed;
+  width: 100%;
+}
+
+.landing__header .container {
+  height: 100%;
+}
+
+.landing__header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing__header__inner__name {
+  font-weight: bold;
+}
+
+.landing__header__inner__name span {
+  color: var(--primary-purple-color);
+}
+
+.landing__header__inner__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.landing__header__inner__nav li {
+  float: left;
+  margin-left: 17px;
+  position: relative;
+}
+
+.landing__header__inner__nav li::after {
+  content: '';
+  width: 60%;
+  height: 2px;
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  transition: 0.15s ease-in-out;
+}
+
+.landing__header__inner__nav li:hover::after {
+  background: var(--primary-purple-color);
+}
+
+.landing__header__inner__nav li a {
+  text-decoration: none;
+  color: #fff;
+  transition: 0.15s ease-in-out;
+}
+
+.landing__header__inner__nav li:hover a {
+  color: var(--primary-purple-color);
+}
+
+.landing__typewriter {
+  width: 93%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(23px + 1.1vw);
+  font-weight: bold;
+  text-align: center;
+}
+
+.landing__arrow {
+  display: flex;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+  font-size: max(23px, 1.3vw);
+  border: 2px solid var(--primary-purple-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.13s ease-in-out;
+}
+
+.landing__arrow:hover {
+  background: var(--primary-purple-color);
+}
