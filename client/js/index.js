@@ -26,3 +26,24 @@ new TypeIt('#typeit', {
   .pause(1000)
   .delete()
   .go();
+
+const toggleMenu = () => {
+  const navElement = document.querySelector('#nav');
+  const menuButtonElement = document.querySelector('#menuButton');
+  const menuButtonIconElement = document.querySelector('#menuButtonIcon');
+
+  if (navElement.classList.contains('landing__header__inner__nav--active')) {
+    navElement.classList.remove('landing__header__inner__nav--active');
+    menuButtonElement.classList.remove('landing__header__inner__menu--active');
+    menuButtonIconElement.classList.remove('fa-times');
+    menuButtonIconElement.classList.add('fa-bars');
+    return;
+  }
+
+  navElement.classList.add('landing__header__inner__nav--active');
+  menuButtonElement.classList.add('landing__header__inner__menu--active');
+  menuButtonIconElement.classList.remove('fa-bars');
+  menuButtonIconElement.classList.add('fa-times');
+};
+
+document.querySelector('#menuButton').addEventListener('click', toggleMenu);
