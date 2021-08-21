@@ -74,6 +74,12 @@ document
     });
   });
 
+document.querySelector('#arrow').addEventListener('click', () => {
+  document.querySelector('#most-booked').scrollIntoView({
+    behavior: 'smooth',
+  });
+});
+
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
