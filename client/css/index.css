@@ -263,6 +263,6 @@ body {
   }
 
   .landing__header__inner__menu {
-    display: block;
+    display: flex;
   }
 }

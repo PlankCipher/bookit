@@ -64,6 +64,10 @@ document
     element.addEventListener('click', function (e) {
       e.preventDefault();
 
+      if (document.querySelector('.landing__header__inner__nav--active')) {
+        toggleMenu();
+      }
+
       document.querySelector(this.getAttribute('href')).scrollIntoView({
         behavior: 'smooth',
       });
