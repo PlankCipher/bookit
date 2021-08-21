@@ -47,3 +47,13 @@ const toggleMenu = () => {
 };
 
 document.querySelector('#menuButton').addEventListener('click', toggleMenu);
+
+window.onscroll = () => {
+  const headerElement = document.querySelector('#header');
+
+  if (window.pageYOffset >= headerElement.clientHeight / 2) {
+    return headerElement.classList.add('landing__header--active');
+  }
+
+  headerElement.classList.remove('landing__header--active');
+};
