@@ -58,6 +58,18 @@ window.onscroll = () => {
   headerElement.classList.remove('landing__header--active');
 };
 
+document
+  .querySelectorAll('.landing__header__inner__nav a')
+  .forEach((element) => {
+    element.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth',
+      });
+    });
+  });
+
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
