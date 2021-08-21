@@ -57,3 +57,30 @@ window.onscroll = () => {
 
   headerElement.classList.remove('landing__header--active');
 };
+
+const highlightCurrentSection = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      document
+        .querySelectorAll('.landing__header__inner__nav li')
+        .forEach((element) => element.classList.remove('current'));
+
+      document
+        .querySelector(
+          `.landing__header__inner__nav li[data-scroll-to="${entry.target.id}"]`,
+        )
+        .classList.add('current');
+    }
+  });
+};
+
+const options = {
+  threshold: 0.5,
+};
+
+let observer = new IntersectionObserver(highlightCurrentSection, options);
+
+observer.observe(document.querySelector('#home'));
+observer.observe(document.querySelector('#most-booked'));
+observer.observe(document.querySelector('#book'));
+observer.observe(document.querySelector('#about-us'));

@@ -101,6 +101,14 @@ body {
   transition: 0.15s ease-in-out;
 }
 
+.landing__header__inner__nav li.current a {
+  color: var(--primary-purple-color);
+}
+
+.landing__header__inner__nav li.current::after {
+  background: var(--primary-purple-color);
+}
+
 .landing__header__inner__nav li:hover a {
   color: var(--primary-purple-color);
 }
@@ -244,6 +252,14 @@ body {
 
   .landing__header__inner__nav--active {
     display: flex;
+  }
+
+  .landing__header__inner__nav li.current a {
+    color: #fff;
+  }
+
+  .landing__header__inner__nav li.current::after {
+    background: none;
   }
 
   .landing__header__inner__menu {
