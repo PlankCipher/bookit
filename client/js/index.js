@@ -40,7 +40,7 @@ const toggleMenu = () => {
 
 document.querySelector('#menuButton').addEventListener('click', toggleMenu);
 
-window.onscroll = () => {
+window.addEventListener('scroll', () => {
   const headerElement = document.querySelector('#header');
 
   if (window.pageYOffset >= headerElement.clientHeight / 2) {
@@ -48,7 +48,7 @@ window.onscroll = () => {
   }
 
   headerElement.classList.remove('landing__header--active');
-};
+});
 
 document
   .querySelectorAll('.landing__header__inner__nav a')
