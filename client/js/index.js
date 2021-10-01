@@ -32,18 +32,10 @@ const toggleMenu = () => {
   const menuButtonElement = document.querySelector('#menuButton');
   const menuButtonIconElement = document.querySelector('#menuButtonIcon');
 
-  if (navElement.classList.contains('landing__header__inner__nav--active')) {
-    navElement.classList.remove('landing__header__inner__nav--active');
-    menuButtonElement.classList.remove('landing__header__inner__menu--active');
-    menuButtonIconElement.classList.remove('fa-times');
-    menuButtonIconElement.classList.add('fa-bars');
-    return;
-  }
-
-  navElement.classList.add('landing__header__inner__nav--active');
-  menuButtonElement.classList.add('landing__header__inner__menu--active');
-  menuButtonIconElement.classList.remove('fa-bars');
-  menuButtonIconElement.classList.add('fa-times');
+  navElement.classList.toggle('landing__header__inner__nav--active');
+  menuButtonElement.classList.toggle('landing__header__inner__menu--active');
+  menuButtonIconElement.classList.toggle('fa-times');
+  menuButtonIconElement.classList.toggle('fa-bars');
 };
 
 document.querySelector('#menuButton').addEventListener('click', toggleMenu);
