@@ -40,7 +40,7 @@ const toggleMenu = () => {
 
 document.querySelector('#menuButton').addEventListener('click', toggleMenu);
 
-window.addEventListener('scroll', () => {
+const updateHeaderBackground = () => {
   const headerElement = document.querySelector('#header');
 
   if (window.pageYOffset >= headerElement.clientHeight / 2) {
@@ -48,7 +48,10 @@ window.addEventListener('scroll', () => {
   }
 
   headerElement.classList.remove('landing__header--active');
-});
+};
+
+updateHeaderBackground();
+window.addEventListener('scroll', updateHeaderBackground);
 
 document
   .querySelectorAll('.landing__header__inner__nav a')
@@ -72,6 +75,36 @@ document.querySelector('#arrow').addEventListener('click', () => {
   });
 });
 
+const MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS = 1200;
+
+if (window.innerWidth <= MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS) {
+  const selectElementsWidths = [];
+  document.querySelectorAll('.book__search_bar select').forEach((element) => {
+    const { id, clientWidth } = element;
+    selectElementsWidths.push({ id, width: clientWidth });
+    element.style.width = '0';
+  });
+
+  document.querySelectorAll('.book__search_bar i').forEach((iconElement) => {
+    iconElement.addEventListener('click', (event) => {
+      document
+        .querySelectorAll('.book__search_bar select')
+        .forEach((selectElement) => {
+          selectElement.style.width = '0';
+        });
+
+      const idOfSelectElementToOpen = event.target.dataset.openSelect;
+      const selectElementToOpen = document.querySelector(
+        `.book__search_bar select[id=${idOfSelectElementToOpen}]`,
+      );
+      const { width: widthOfSelectElementToOpen } = selectElementsWidths.find(
+        ({ id }) => id === idOfSelectElementToOpen,
+      );
+
+      selectElementToOpen.style.width = `${widthOfSelectElementToOpen}px`;
+    });
+  });
+}
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {

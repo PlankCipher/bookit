@@ -218,7 +218,8 @@ body {
   justify-content: space-around;
 }
 
-.most_booked__halls__hall {
+.most_booked__halls__hall,
+.book__results__halls__hall {
   width: 350px;
   height: 200px;
   background: url('../images/landing.jpeg');
@@ -227,7 +228,8 @@ body {
   margin: 20px;
 }
 
-.most_booked__halls__hall__overlay {
+.most_booked__halls__hall__overlay,
+.book__results__halls__hall__overlay {
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -241,8 +243,113 @@ body {
   transition: 0.25s ease-in-out;
 }
 
-.most_booked__halls__hall:hover .most_booked__halls__hall__overlay {
+.most_booked__halls__hall:hover .most_booked__halls__hall__overlay,
+.book__results__halls__hall:hover .book__results__halls__hall__overlay {
   opacity: 1;
+}
+
+.book {
+  padding: 50px 0;
+}
+
+.book__search_bar {
+  width: 90%;
+  /* border: 2px solid var(--primary-purple-color); */
+  background: var(--primary-gray-color);
+  border-radius: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.book__search_bar form {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.book__search_bar select,
+.book__search_bar button {
+  background: none;
+  transition: 0.17s ease-in-out;
+}
+
+.book__search_bar select,
+.book__search_bar button,
+.book__search_bar i {
+  font-size: clamp(100%, 1rem + 0.8vw, 24px);
+  color: var(--primary-purple-color);
+}
+
+.book__search_bar select {
+  border: none;
+}
+
+.book__search_bar button {
+  border: 2px solid var(--primary-purple-color);
+  height: 45px;
+  border-radius: 45px;
+  padding: 0 25px;
+  cursor: pointer;
+}
+
+.book__search_bar button:hover {
+  background: var(--primary-purple-color);
+  color: #fff;
+}
+
+.book__results {
+  margin: 50px 0 0 0;
+}
+
+.book__results__heading {
+  height: 70px;
+  background: var(--primary-purple-color);
+  color: #fff;
+  font-size: clamp(100%, 1rem + 2vw, 27px);
+  text-align: center;
+  line-height: 70px;
+}
+
+.book__results__halls {
+  background: var(--primary-gray-color);
+  padding: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.book__results__halls__hall {
+  margin: 0;
+  width: auto;
+}
+
+.book__results__halls__hall__overlay {
+  font-weight: bold;
+}
+
+.book__results__halls__hall__overlay p,
+.book__results__halls__hall__overlay :nth-child(1) {
+  margin-top: 0;
+}
+
+.book__results__halls__hall__overlay :last-child {
+  margin-bottom: 0;
+}
+
+.book__results__halls__hall__overlay a {
+  text-decoration: none;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 8px 14px;
+  color: #fff;
+  transition: 0.2s ease-in-out;
+}
+
+.book__results__halls__hall__overlay a:hover {
+  background: #fff;
+  color: var(--primary-purple-color);
 }
 
 @media screen and (max-width: 650px) {
@@ -264,5 +371,15 @@ body {
 
   .landing__header__inner__menu {
     display: flex;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .book__search_bar {
+    width: 100%;
+  }
+
+  .book__search_bar form {
+    padding: 0 10px;
   }
 }
