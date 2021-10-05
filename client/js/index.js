@@ -122,7 +122,7 @@ const highlightCurrentSection = (entries) => {
 };
 
 const options = {
-  threshold: 0.5,
+  threshold: 0.75,
 };
 
 let observer = new IntersectionObserver(highlightCurrentSection, options);
