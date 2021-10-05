@@ -105,6 +105,7 @@ if (window.innerWidth <= MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS) {
     });
   });
 }
+
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
