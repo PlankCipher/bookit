@@ -4,7 +4,10 @@
   "description": "A simple demo website for a hall booking service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "setup_db": "node ./db/setup_db/setup_db.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/PlankCipher/bookit/issues"
   },
-  "homepage": "https://github.com/PlankCipher/bookit#readme"
+  "homepage": "https://github.com/PlankCipher/bookit#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.13"
+  }
 }
