@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const getRandomInt = require('../../utils/getRandomInt.js');
 const tablesCreationSQLS = require('./tables_creation_sqls.js');
 const dbConfig = require('../connectionConfig.js');
 
@@ -13,13 +14,9 @@ const createTablesIfNotExist = async (connection) => {
   }
 };
 
-const getRandomInt = (min, max) => {
-  return min + Math.floor(Math.random() * (max + 1 - min));
-};
-
 const getFakeDate = () => {
   const date = new Date();
-  const day = date.getDay() + 1 + getRandomInt(1, 7);
+  const day = date.getDate() + getRandomInt(1, 7);
   const month = date.getMonth() + 1 + getRandomInt(0, 1);
   const year = date.getFullYear();
   return { year, month, day };

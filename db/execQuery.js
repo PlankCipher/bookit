@@ -1,11 +1,8 @@
 const mysql = require('mysql2/promise');
 const dbConfig = require('./connectionConfig.js');
 
-const execQuery = async (sql, values, connectionOptions) => {
-  const connection = await mysql.createConnection({
-    ...dbConfig,
-    ...connectionOptions,
-  });
+const execQuery = async (sql, values) => {
+  const connection = await mysql.createConnection(dbConfig);
 
   const [result] = await connection.execute(sql, values);
 
