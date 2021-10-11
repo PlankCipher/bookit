@@ -9,6 +9,7 @@ const createTablesIfNotExist = async (connection) => {
       await connection.execute(sqlQuery);
     });
   } catch (err) {
+    // eslint-disable-next-line
     console.log(err);
     connection.end();
   }
@@ -35,10 +36,10 @@ const seedTables = async (connection) => {
     const styles = ['traditional', 'modern', 'fancy'];
     const places = ['new york city', 'los angeles', 'california', 'colorado'];
 
-    for (let i = 0; i < names.length; i++) {
-      for (let j = 0; j < categories.length; j++) {
-        for (let k = 0; k < styles.length; k++) {
-          for (let l = 0; l < places.length; l++) {
+    names.forEach((name) => {
+      categories.forEach((category) => {
+        styles.forEach((style) => {
+          places.forEach(async (place) => {
             let lastBookedId = 0;
 
             // A 50/50 chance that the hall is booked
@@ -57,25 +58,19 @@ const seedTables = async (connection) => {
 
             const [hallInsertionResult] = await connection.execute(
               'INSERT INTO halls (name, price, last_booking_id, category, style, place) VALUES (?, ?, ?, ?, ?, ?)',
-              [
-                names[i],
-                price,
-                lastBookedId,
-                categories[j],
-                styles[k],
-                places[l],
-              ],
+              [name, price, lastBookedId, category, style, place],
             );
 
             await connection.execute(
               'UPDATE bookings SET hall_id = ? WHERE hall_id = 0',
               [hallInsertionResult.insertId],
             );
-          }
-        }
-      }
-    }
+          });
+        });
+      });
+    });
   } catch (err) {
+    // eslint-disable-next-line
     console.log(err);
     connection.end();
   }
