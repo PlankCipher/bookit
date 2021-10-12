@@ -6,13 +6,25 @@ class Hall {
     try {
       const { category, style, place } = filters;
 
-      const getHallsByFiltersSQL =
-        'SELECT * FROM halls LEFT JOIN bookings ON halls.last_booking_id = bookings.id WHERE category = ? AND style = ? AND place = ?';
+      const getHallsByFiltersSQL = `SELECT halls.id AS 'halls_id', name, price, last_booking_id, category, style, place, bookings.id AS 'bookings_id', hall_id, booked_till
+        FROM halls
+        LEFT JOIN bookings
+        ON halls.last_booking_id = bookings.id
+        WHERE category = ? AND style = ? AND place = ?`;
+
       const [getHallsByFiltersResults] = await execQuery(getHallsByFiltersSQL, [
         category,
         style,
         place,
       ]);
+
+      if (getHallsByFiltersResults.length < 1) {
+        const err = new Error(
+          'No halls matching the provided filters were found',
+        );
+        err.statusCode = 404;
+        throw err;
+      }
 
       return { err: null, halls: getHallsByFiltersResults };
     } catch (err) {
@@ -22,7 +34,12 @@ class Hall {
 
   static async getHallById(id) {
     try {
-      const getHallByIdSQL = 'SELECT * FROM halls WHERE id = ?';
+      const getHallByIdSQL = `SELECT halls.id AS 'halls_id', name, price, last_booking_id, category, style, place, bookings.id AS 'bookings_id', hall_id, booked_till
+        FROM halls
+        LEFT JOIN bookings
+        ON halls.last_booking_id = bookings.id
+        WHERE halls.id = ?`;
+
       const [getHallByIdResult] = await execQuery(getHallByIdSQL, [id]);
 
       if (getHallByIdResult.length < 1) {
@@ -59,7 +76,7 @@ class Hall {
 
       const now = new Date();
 
-      if (now.getTime() < hall.booked_till.getTime()) {
+      if (hall.booked_till && now.getTime() < hall.booked_till.getTime()) {
         const alreadyBookedErr = new Error(
           `Hall with id '${id}' is already booked`,
         );
