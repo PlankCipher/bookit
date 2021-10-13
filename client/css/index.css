@@ -288,6 +288,7 @@ body {
 
 .book__search_bar select {
   border: none;
+  text-transform: capitalize;
 }
 
 .book__search_bar button {

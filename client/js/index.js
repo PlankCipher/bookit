@@ -75,36 +75,91 @@ document.querySelector('#arrow').addEventListener('click', () => {
   });
 });
 
+const generateSelectHTML = (iconClasses, selectId, defaultOption, options) => {
+  let selectHTML = `<div>
+                      <i class="${iconClasses}" data-open-select="${selectId}"></i>
+                      <select name="${selectId}" id="${selectId}">
+                        <option value="">${defaultOption}</option>`;
+
+  options.forEach((option) => {
+    selectHTML += `<option value="${option}">${option}</option>`;
+  });
+
+  selectHTML += `</select>
+              </div>`;
+
+  return selectHTML;
+};
+
 const MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS = 1200;
 
-if (window.innerWidth <= MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS) {
-  const selectElementsWidths = [];
-  document.querySelectorAll('.book__search_bar select').forEach((element) => {
-    const { id, clientWidth } = element;
-    selectElementsWidths.push({ id, width: clientWidth });
-    element.style.width = '0';
-  });
-
-  document.querySelectorAll('.book__search_bar i').forEach((iconElement) => {
-    iconElement.addEventListener('click', (event) => {
-      document
-        .querySelectorAll('.book__search_bar select')
-        .forEach((selectElement) => {
-          selectElement.style.width = '0';
-        });
-
-      const idOfSelectElementToOpen = event.target.dataset.openSelect;
-      const selectElementToOpen = document.querySelector(
-        `.book__search_bar select[id=${idOfSelectElementToOpen}]`,
-      );
-      const { width: widthOfSelectElementToOpen } = selectElementsWidths.find(
-        ({ id }) => id === idOfSelectElementToOpen,
-      );
-
-      selectElementToOpen.style.width = `${widthOfSelectElementToOpen}px`;
+const shrinkSelectElements = () => {
+  if (window.innerWidth <= MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS) {
+    const selectElementsWidths = [];
+    document.querySelectorAll('.book__search_bar select').forEach((element) => {
+      const { id, clientWidth } = element;
+      selectElementsWidths.push({ id, width: clientWidth });
+      element.style.width = '0';
     });
-  });
-}
+
+    document.querySelectorAll('.book__search_bar i').forEach((iconElement) => {
+      iconElement.addEventListener('click', (event) => {
+        document
+          .querySelectorAll('.book__search_bar select')
+          .forEach((selectElement) => {
+            selectElement.style.width = '0';
+          });
+
+        const idOfSelectElementToOpen = event.target.dataset.openSelect;
+        const selectElementToOpen = document.querySelector(
+          `.book__search_bar select[id=${idOfSelectElementToOpen}]`,
+        );
+        const { width: widthOfSelectElementToOpen } = selectElementsWidths.find(
+          ({ id }) => id === idOfSelectElementToOpen,
+        );
+
+        selectElementToOpen.style.width = `${widthOfSelectElementToOpen}px`;
+      });
+    });
+  }
+};
+
+const setAllFilters = async () => {
+  const response = await fetch('/halls/all-filters');
+  const { categories, styles, places } = await response.json();
+
+  const categoriesHTML = generateSelectHTML(
+    'fas fa-calendar-alt',
+    'category',
+    'Category',
+    categories,
+  );
+
+  const stylesHTML = generateSelectHTML(
+    'fas fa-palette',
+    'style',
+    'Style',
+    styles,
+  );
+
+  const placesHTML = generateSelectHTML(
+    'fas fa-map-marker-alt',
+    'place',
+    'Place',
+    places,
+  );
+
+  const finalHTML = categoriesHTML + stylesHTML + placesHTML;
+  document
+    .querySelector('.book__search_bar button')
+    .insertAdjacentHTML('beforebegin', finalHTML);
+
+  shrinkSelectElements();
+};
+
+(async () => {
+  await setAllFilters();
+})();
 
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
