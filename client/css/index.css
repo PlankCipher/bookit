@@ -343,18 +343,28 @@ body {
   margin-bottom: 0;
 }
 
-.book__results__halls__hall__overlay a {
-  text-decoration: none;
+.book__results__halls__hall__overlay button {
+  padding: 8px 14px;
   border: 2px solid #fff;
   border-radius: 5px;
-  padding: 8px 14px;
   color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  background: none;
+  cursor: pointer;
   transition: 0.2s ease-in-out;
 }
 
-.book__results__halls__hall__overlay a:hover {
+.book__results__halls__hall__overlay button:hover {
   background: #fff;
   color: var(--primary-purple-color);
+}
+
+.book__results__halls__message {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  text-align: center;
+  font-size: clamp(100%, 1rem + 0.8vw, 24px);
 }
 
 .about_us__inner {

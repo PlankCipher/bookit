@@ -95,13 +95,21 @@ class Hall {
         id,
         booked_till,
       ]);
+      const { insertId: newLastBookingId } = insertBookingResult;
 
       const updateHallSQL = 'UPDATE halls SET last_booking_id = ? WHERE id = ?';
-      await execQuery(updateHallSQL, [insertBookingResult.insertId, id]);
+      await execQuery(updateHallSQL, [newLastBookingId, id]);
 
-      return null;
+      const finalHall = {
+        ...hall,
+        last_booking_id: newLastBookingId,
+        bookings_id: newLastBookingId,
+        booked_till,
+      };
+
+      return { err: null, hall: finalHall };
     } catch (err) {
-      return err;
+      return { err, hall: null };
     }
   }
 }

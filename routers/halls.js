@@ -3,7 +3,7 @@ const Hall = require('../db/Hall.js');
 
 const router = new Router();
 
-router.get('/by-filters', async (req, res, next) => {
+router.post('/by-filters', async (req, res, next) => {
   try {
     const { filters } = req.body;
 
@@ -35,10 +35,10 @@ router.get('/all-filters', async (req, res, next) => {
 router.put('/book/:hallId', async (req, res, next) => {
   try {
     const { hallId } = req.params;
-    const err = await Hall.bookAHall(hallId);
+    const { err, hall } = await Hall.bookAHall(hallId);
     if (err) throw err;
 
-    res.status(204).end();
+    res.json(hall);
   } catch (err) {
     next(err);
   }

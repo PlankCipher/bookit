@@ -161,6 +161,102 @@ const setAllFilters = async () => {
   await setAllFilters();
 })();
 
+const handleButtonClick = async (event, id) => {
+  const response = await fetch(`/halls/book/${id}`, {
+    method: 'PUT',
+  });
+  const { name, price, booked_till } = await response.json();
+  const bookedTill = new Date(booked_till);
+
+  if (response.status !== 200) {
+    Swal.fire({
+      title: 'Error!',
+      text: 'Sorry! An Error occurred during booking this hall. Please try again later!',
+      icon: 'error',
+    });
+
+    return;
+  }
+
+  const parentElement = event.target.parentNode;
+
+  parentElement.removeChild(event.target);
+  parentElement.insertAdjacentHTML(
+    'beforeend',
+    `<p>Booked till: ${bookedTill.toDateString()}</p>`,
+  );
+
+  Swal.fire({
+    title: 'Success',
+    text: `You successfully booked the "${name}" hall for ${price}$/night till ${bookedTill.toDateString()}`,
+    icon: 'success',
+  });
+};
+
+const displayHalls = (halls) => {
+  const hallsHTML = halls.reduce((acc, curr) => {
+    const { id, name, price, booked_till } = curr;
+
+    const bookedTill = new Date(booked_till);
+
+    return (acc += `<div class="book__results__halls__hall">
+                      <div class="book__results__halls__hall__overlay">
+                        <h2>${name}</h2>
+                        <p>${price}$/night</p>
+                        ${
+                          booked_till &&
+                          new Date().getTime() < bookedTill.getTime()
+                            ? `<p>Booked till: ${bookedTill.toDateString()}</p>`
+                            : `<button type="button" onclick="handleButtonClick(event, ${id})">Book</button>`
+                        }
+                      </div>
+                    </div>`);
+  }, '');
+
+  document.querySelector('.book__results__halls').innerHTML = hallsHTML;
+};
+
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
+
+  const selectValues = Array.from(
+    document.querySelectorAll('.book__search_bar select'),
+  ).map((selectElement) => selectElement.value.trim());
+
+  const anyIsEmpty = selectValues.some((value) => value.length === 0);
+  if (anyIsEmpty) {
+    Swal.fire({
+      title: 'Error!',
+      text: 'You need to choose one item from each dropdown menu',
+      icon: 'error',
+    });
+
+    return;
+  }
+
+  const [category, style, place] = selectValues;
+
+  const response = await fetch('/halls/by-filters', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ filters: { category, style, place } }),
+  });
+
+  if (response.status === 404) {
+    document.querySelector('.book__results__halls').innerHTML =
+      '<div class="book__results__halls__message">No halls matching provided filters were found</div>';
+  }
+
+  const halls = await response.json();
+  displayHalls(halls);
+};
+
+document
+  .querySelector('.book__search_bar form')
+  .addEventListener('submit', handleFormSubmit);
+
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
