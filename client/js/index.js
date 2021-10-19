@@ -1,3 +1,4 @@
+// The typing effect in the landing page
 new TypeIt('#typeit', {
   speed: 50,
   deleteSpeed: 50,
@@ -40,6 +41,8 @@ const toggleMenu = () => {
 
 document.querySelector('#menuButton').addEventListener('click', toggleMenu);
 
+// Change the header's background if the page is
+// scrolled at least half the header's height
 const updateHeaderBackground = () => {
   const headerElement = document.querySelector('#header');
 
@@ -50,9 +53,13 @@ const updateHeaderBackground = () => {
   headerElement.classList.remove('landing__header--active');
 };
 
+// Call the function once on page load to avoid having
+// a transparent header background when user scrolls
+// and then reloads the page
 updateHeaderBackground();
 window.addEventListener('scroll', updateHeaderBackground);
 
+// Smoothly scroll to desired section on clicking nav links
 document
   .querySelectorAll('.landing__header__inner__nav a')
   .forEach((element) => {
@@ -91,6 +98,8 @@ const generateSelectHTML = (iconClasses, selectId, defaultOption, options) => {
   return selectHTML;
 };
 
+// Shrink select elements in the search bar and
+// only open one at a time on clicking their icons
 const MIN_WIDTH_TO_OPEN_SELECT_ELEMENTS = 1200;
 
 const shrinkSelectElements = () => {
@@ -161,7 +170,7 @@ const setAllFilters = async () => {
   await setAllFilters();
 })();
 
-const handleButtonClick = async (event, id) => {
+const handleBookButtonClick = async (event, id) => {
   const response = await fetch(`/halls/book/${id}`, {
     method: 'PUT',
   });
@@ -207,7 +216,7 @@ const displayHalls = (halls) => {
                           booked_till &&
                           new Date().getTime() < bookedTill.getTime()
                             ? `<p>Booked till: ${bookedTill.toDateString()}</p>`
-                            : `<button type="button" onclick="handleButtonClick(event, ${id})">Book</button>`
+                            : `<button type="button" onclick="handleBookButtonClick(event, ${id})">Book</button>`
                         }
                       </div>
                     </div>`);
@@ -216,7 +225,7 @@ const displayHalls = (halls) => {
   document.querySelector('.book__results__halls').innerHTML = hallsHTML;
 };
 
-const handleFormSubmit = async (event) => {
+const handleSearchFormSubmit = async (event) => {
   event.preventDefault();
 
   const selectValues = Array.from(
@@ -255,8 +264,11 @@ const handleFormSubmit = async (event) => {
 
 document
   .querySelector('.book__search_bar form')
-  .addEventListener('submit', handleFormSubmit);
+  .addEventListener('submit', handleSearchFormSubmit);
 
+// Highlight the nav list item corresponding
+// to the the section currently intersecting
+// with the viewport
 const highlightCurrentSection = (entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {

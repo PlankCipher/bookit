@@ -6,6 +6,7 @@ class Hall {
     try {
       const { category, style, place } = filters;
 
+      // The columns to select are specifically named to avoid ambiguity
       const getHallsByFiltersSQL = `SELECT halls.id AS 'halls_id', name, price, last_booking_id, category, style, place, bookings.id AS 'bookings_id', hall_id, booked_till
         FROM halls
         LEFT JOIN bookings
@@ -34,6 +35,7 @@ class Hall {
 
   static async getHallById(id) {
     try {
+      // The columns to select are specifically named to avoid ambiguity
       const getHallByIdSQL = `SELECT halls.id AS 'halls_id', name, price, last_booking_id, category, style, place, bookings.id AS 'bookings_id', hall_id, booked_till
         FROM halls
         LEFT JOIN bookings
@@ -56,6 +58,11 @@ class Hall {
 
   static async getFilters() {
     try {
+      // The SQL `DISTINCT` keyword was not used here, even though
+      // unique values are required, because different combinations
+      // of the three columns are considered distinct records. Also,
+      // using separate connections and queries to get distinct values
+      // of every filter seems unnecessary
       const getFiltersSQL = 'SELECT category, style, place FROM halls';
       const [getFiltersResults] = await execQuery(getFiltersSQL, null);
 
@@ -100,6 +107,7 @@ class Hall {
       const updateHallSQL = 'UPDATE halls SET last_booking_id = ? WHERE id = ?';
       await execQuery(updateHallSQL, [newLastBookingId, id]);
 
+      // No need to get the updated hall from the database
       const finalHall = {
         ...hall,
         last_booking_id: newLastBookingId,

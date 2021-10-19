@@ -10,6 +10,7 @@ router.post('/by-filters', async (req, res, next) => {
     const { err, halls } = await Hall.getHallsByFilters(filters);
     if (err) throw err;
 
+    // Return only info used on client-side
     const finalHalls = halls.reduce((acc, curr) => {
       const { halls_id: id, name, price, booked_till } = curr;
       return [...acc, { id, name, price, booked_till }];

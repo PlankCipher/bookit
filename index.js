@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use('/halls', hallsRouter);
 
+// Error Handler
 // eslint-disable-next-line
 app.use((err, req, res, next) => {
   let statusCode;

@@ -16,6 +16,7 @@ const createTablesIfNotExist = async (connection) => {
 };
 
 const getFakeDate = () => {
+  // Get a fake date a little bit ahead of current date
   const date = new Date();
   const day = date.getDate() + getRandomInt(1, 7);
   const month = date.getMonth() + 1 + getRandomInt(0, 1);
@@ -25,6 +26,7 @@ const getFakeDate = () => {
 
 const seedTables = async (connection) => {
   try {
+    // This data is completely made up by me
     const names = [
       'Tim Brothers',
       'Gold Stars',
@@ -36,6 +38,8 @@ const seedTables = async (connection) => {
     const styles = ['traditional', 'modern', 'fancy'];
     const places = ['new york city', 'los angeles', 'california', 'colorado'];
 
+    // Insert rows to `halls` table with every single combination of the
+    // fake data and corresponding bookings (if exist) to `bookings` table
     names.forEach((name) => {
       categories.forEach((category) => {
         styles.forEach((style) => {
