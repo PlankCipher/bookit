@@ -15,6 +15,8 @@ module.exports = {
     'function-paren-newline': ['off'],
     'implicit-arrow-linebreak': ['off'],
     'operator-linebreak': ['off'],
+    'no-plusplus': ['off'],
+    'no-await-in-loop': ['off'],
     camelcase: ['warn'],
   },
 };

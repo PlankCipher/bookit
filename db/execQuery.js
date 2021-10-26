@@ -15,7 +15,7 @@ const execQuery = async (sql, values) => {
 
   const [result] = await connection.execute(sql, values);
 
-  connection.end();
+  await connection.end();
 
   return [result];
 };

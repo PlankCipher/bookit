@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "setup_db": "node ./db/setup_db/setup_db.js"
+    "setup_db": "node ./db/setup_db/setup_db.js",
+    "heroku-postbuild": "setup_db"
   },
   "repository": {
     "type": "git",
