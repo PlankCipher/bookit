@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "setup_db": "node ./db/setup_db/setup_db.js",
-    "heroku-postbuild": "setup_db"
+    "heroku-postbuild": "yarn run setup_db"
   },
   "repository": {
     "type": "git",
