@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
 const getRandomInt = require('../../utils/getRandomInt.js');
+const getFutureFakeDate = require('../../utils/getFutureFakeDate.js');
 const tablesCreationSQLS = require('./tables_creation_sqls.js');
 const dbConfig = require('../connectionConfig.js');
 
@@ -13,18 +14,6 @@ const createTablesIfNotExist = async (connection) => {
     console.log(err);
     connection.end();
   }
-};
-
-const getFakeDate = () => {
-  // Get a fake date a little bit ahead of current date
-  const now = new Date().getTime();
-  const newDate = new Date(
-    now + getRandomInt(48 * 60 * 60 * 1000, 72 * 60 * 60 * 1000),
-  );
-  const day = newDate.getDate();
-  const month = newDate.getMonth() + 1;
-  const year = newDate.getFullYear();
-  return { year, month, day };
 };
 
 const seedTables = async (connection) => {
@@ -55,7 +44,7 @@ const seedTables = async (connection) => {
 
               // A 50/50 chance that the hall is booked
               if (Math.random() > 0.5) {
-                const { year, month, day } = getFakeDate();
+                const { year, month, day } = getFutureFakeDate();
                 const bookedTill = `${year}-${month}-${day}`;
 
                 const [bookingInsertionResult] = await connection.execute(

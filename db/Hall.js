@@ -1,5 +1,6 @@
 const execQuery = require('./execQuery.js');
 const getUnique = require('../utils/getUnique.js');
+const getFutureFakeDate = require('../utils/getFutureFakeDate.js');
 
 class Hall {
   static async getHallsByFilters(filters) {
@@ -91,9 +92,7 @@ class Hall {
         throw alreadyBookedErr;
       }
 
-      const day = now.getDate() + 1;
-      const month = now.getMonth() + 1;
-      const year = now.getFullYear();
+      const { year, month, day } = getFutureFakeDate();
       const booked_till = `${year}-${month}-${day}`;
 
       const insertBookingSQL =
