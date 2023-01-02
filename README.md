@@ -2,7 +2,7 @@
 
 A simple demo website for a hall booking service
 
-Available at: [https://b00kit-app.herokuapp.com/](https://b00kit-app.herokuapp.com/)
+Available at: ~[https://b00kit-app.herokuapp.com/](https://b00kit-app.herokuapp.com/)~
 
 ## Dependencies
 
